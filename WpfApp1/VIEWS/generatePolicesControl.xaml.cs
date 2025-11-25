@@ -115,7 +115,7 @@ namespace Enla_C.VIEWS
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         public void loadData()
@@ -160,6 +160,31 @@ namespace Enla_C.VIEWS
             {
                 MessageBox.Show($"Ocurrió un error inesperado:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void UnloadData()
+        {
+            datePickerFecha.SelectedDate = null;
+
+            comboProveedor.SelectedIndex = -1;
+            comboProveedor.Text = string.Empty;
+            comboProveedor.ItemsSource = null;
+
+            comboAlmacenOrigen.Text = string.Empty;
+            comboAlmacenDestino.Text = string.Empty;
+
+            comboProducto.SelectedIndex = -1;
+            comboProducto.Text = string.Empty;
+            comboProducto.ItemsSource = null;
+
+            comboMateriaPrima.SelectedIndex = -1;
+            comboMateriaPrima.Text = string.Empty;
+            comboMateriaPrima.ItemsSource = null;
+
+            textBoxCantidad.Text = string.Empty;
+            textBoxMerma.Text = "0.0";
+            textBoxAdicional1.Text = string.Empty;
+            textBoxAdicional2.Text = string.Empty;
         }
 
         private void buttonAcceptGeneratePolicies_Click(object sender, RoutedEventArgs e)

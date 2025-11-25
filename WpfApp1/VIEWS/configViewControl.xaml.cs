@@ -143,8 +143,8 @@ namespace Enla_C.VIEWS
                 {
                     if (!File.Exists(conect.baseDatos))
                     {
-                        MessageBox.Show("El archivo de base de datos no se encontró después de guardar los cambios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        GeneratePoliciesControl?.UnloadData();
+                        throw new FileNotFoundException("Archivo de base de datos no encontrado.");
                     }
 
                     conn.Open();
@@ -154,10 +154,12 @@ namespace Enla_C.VIEWS
             }
             catch (FbException ex)
             {
+                GeneratePoliciesControl?.UnloadData();
                 MessageBox.Show($"No se pudo conectar a la base de datos:\n{ex.Message}", "Error de conexión", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
+                GeneratePoliciesControl?.UnloadData();
                 MessageBox.Show($"Error:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
