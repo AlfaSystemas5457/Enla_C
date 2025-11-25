@@ -25,6 +25,7 @@ namespace Enla_C.DB
 
         private static ConectDB instance = null;
         private static IniFile iniFile = null;
+        private static bool isConnected = false;
         private string connectionString;
         private string iniConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config.ini");
 
@@ -148,14 +149,17 @@ namespace Enla_C.DB
             {
                 FbConnection conn = new FbConnection(connectionString);
                 conn.Open();
+                isConnected = true;
                 return conn;
             }
             catch (FbException fbEx)
             {
+                isConnected = false;
                 throw new Exception("Error al conectar a Firebird. Verifique los datos de conexión.", fbEx);
             }
             catch (Exception ex)
             {
+                isConnected = false;
                 throw new Exception("Error inesperado al obtener la conexión.", ex);
             }
         }
@@ -185,6 +189,11 @@ namespace Enla_C.DB
                 using (FbConnection conn = GetConnection())
                 using (FbCommand cmd = new FbCommand(sql, conn))
                 {
+                    if(isConnected == false)
+                    {
+                        throw new Exception("No hay conexión a la base de datos.");
+                    }
+
                     if (parameters != null)
                     {
                         cmd.Parameters.AddRange(parameters);
@@ -215,6 +224,11 @@ namespace Enla_C.DB
                 using (FbConnection conn = GetConnection())
                 using (FbCommand cmd = new FbCommand(sql, conn))
                 {
+                    if (isConnected == false)
+                    {
+                        throw new Exception("No hay conexión a la base de datos.");
+                    }
+
                     if (parameters != null)
                     {
                         cmd.Parameters.AddRange(parameters);
@@ -240,6 +254,10 @@ namespace Enla_C.DB
                 using (FbTransaction trans = conn.BeginTransaction())
                 using (FbCommand cmd = new FbCommand(sql, conn, trans))
                 {
+                    if (isConnected == false)
+                    {
+                        throw new Exception("No hay conexión a la base de datos.");
+                    }
                     if (parameters != null)
                     {
                         cmd.Parameters.AddRange(parameters);
