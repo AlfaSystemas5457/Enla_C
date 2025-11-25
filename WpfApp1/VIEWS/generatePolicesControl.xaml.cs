@@ -64,11 +64,7 @@ namespace Enla_C.VIEWS
                 if (groupBoxCostosAdicionales != null)
                     groupBoxCostosAdicionales.Visibility = Visibility.Collapsed;
 
-                ConectDB conect = ConectDB.Instance;
-                if (comboAlmacenOrigen != null)
-                    comboAlmacenOrigen.Text = conect.Alm1;
-                if (comboAlmacenDestino != null)
-                    comboAlmacenDestino.Text = conect.Alm2;
+                CambiarAlmacen();
             }
             catch (Exception ex)
             {
@@ -84,13 +80,29 @@ namespace Enla_C.VIEWS
                 gridMerma.Visibility = Visibility.Visible;
                 groupBoxCostosAdicionales.Visibility = Visibility.Visible;
 
-                ConectDB conect = ConectDB.Instance;
-                comboAlmacenOrigen.Text = conect.Alm2;
-                comboAlmacenDestino.Text = conect.Alm1;
+                CambiarAlmacen();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ocurrió un error inesperado:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void CambiarAlmacen()
+        {
+            ConectDB conect = ConectDB.Instance;
+
+            if (radioSalidaMaquila.IsChecked == true)
+            {
+                if (comboAlmacenOrigen != null)
+                    comboAlmacenOrigen.Text = conect.Alm1;
+                if (comboAlmacenDestino != null)
+                    comboAlmacenDestino.Text = conect.Alm2;
+            }
+            else if (radioEntradaProcesado.IsChecked == true)
+            {
+                comboAlmacenOrigen.Text = conect.Alm2;
+                comboAlmacenDestino.Text = conect.Alm1;
             }
         }
 
@@ -163,14 +175,14 @@ namespace Enla_C.VIEWS
 
             if (string.IsNullOrEmpty(comboAlmacenOrigen.Text))
             {
-                MessageBox.Show("El campo Almacwen Origen es obligatorio.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("El campo Almacén Origen es obligatorio.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 comboAlmacenOrigen.Focus();
                 return;
             }
 
             if (string.IsNullOrEmpty(comboAlmacenDestino.Text))
             {
-                MessageBox.Show("El campo Almacwen Destino es obligatorio.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("El campo Almacén Destino es obligatorio.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 comboAlmacenDestino.Focus();
                 return;
             }

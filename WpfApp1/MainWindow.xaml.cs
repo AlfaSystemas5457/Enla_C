@@ -27,6 +27,7 @@ namespace Enla_C
         public MainWindow()
         {
             InitializeComponent();
+            configViewControl.GeneratePoliciesControl = generatePolicesControl;
         }
 
         private void generate_policies_Click(object sender, RoutedEventArgs e)
@@ -91,6 +92,7 @@ namespace Enla_C
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             FbConnection.ClearAllPools();
+            ConectDB.Instance.ClearAllConnections();
         }
     }
 }

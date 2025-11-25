@@ -26,7 +26,7 @@ namespace Enla_C.DB
         private static ConectDB instance = null;
         private static IniFile iniFile = null;
         private string connectionString;
-        private string iniConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.ini");
+        private string iniConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config.ini");
 
         public ConectDB()
         {
@@ -60,6 +60,11 @@ namespace Enla_C.DB
                 }
                 return instance;
             }
+        }
+
+        public void ClearAllConnections()
+        {
+            FbConnection.ClearAllPools();
         }
 
         private void LoadSettings()
@@ -124,7 +129,8 @@ namespace Enla_C.DB
                 sb.Append("Port=3050;");
                 sb.Append("Dialect=3;");
                 sb.Append("Charset=UTF8;");
-                sb.Append("Pooling=true;MinPoolSize=0;MaxPoolSize=50;");
+                //sb.Append("Pooling=true;MinPoolSize=0;MaxPoolSize=50;");
+                sb.Append("Pooling=false;");
                 connectionString = sb.ToString();
             }
             catch (Exception ex)

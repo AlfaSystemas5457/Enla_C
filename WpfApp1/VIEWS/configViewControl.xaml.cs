@@ -24,6 +24,7 @@ namespace Enla_C.VIEWS
     /// </summary>
     public partial class configViewControl : UserControl
     {
+        public generatePolicesControl GeneratePoliciesControl { get; set; }
         ConectDB conect = ConectDB.Instance;
 
         public configViewControl()
@@ -135,8 +136,16 @@ namespace Enla_C.VIEWS
                 };
 
                 conect.SaveConfig(dbParams);
+                GeneratePoliciesControl?.CambiarAlmacen();
+
                 using (var conn = this.conect.GetConnectionTest())
                 {
+                    if (!File.Exists(conect.baseDatos))
+                    {
+                        MessageBox.Show("El archivo de base de datos no se encontró después de guardar los cambios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     conn.Open();
                     MessageBox.Show("Conexión exitosa a la base de datos.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     conn.Close();

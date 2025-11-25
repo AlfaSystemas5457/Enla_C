@@ -82,15 +82,15 @@
 
                         <Label Grid.Column="0" 
                                Grid.Row="0">
-                            Almacen de origen:
+                            Almacén de origen:
                         </Label>
                         <TextBox Grid.Column="1" 
-                                  Grid.Row="0" 
-                                  x:Name="comboAlmacenOrigen" 
-                                  FontSize="18" 
-                                  HorizontalAlignment="Stretch" 
-                                  Margin="5,0,5,0"
-                                  IsReadOnly="True"/>
+                                 Grid.Row="0" 
+                                 x:Name="comboAlmacenOrigen" 
+                                 FontSize="18" 
+                                 HorizontalAlignment="Stretch" 
+                                 Margin="5,0,5,0"
+                                 PreviewTextInput="NumberValidationTextBox"/>
                     </Grid>
 
                     <Grid Grid.Column="0" Grid.Row="1" Margin="5">
@@ -127,7 +127,7 @@
 
                         <Label Grid.Column="0" 
                                Grid.Row="0">
-                            Almacen de destino:
+                            Almacén de destino:
                         </Label>
                         <TextBox Grid.Column="1" 
                                  Grid.Row="0" 
@@ -135,7 +135,7 @@
                                  FontSize="18" 
                                  HorizontalAlignment="Stretch" 
                                  Margin="5,0,5,0"
-                                 IsReadOnly="True"/>
+                                 PreviewTextInput="NumberValidationTextBox"/>
                     </Grid>
                 </Grid>
             </GroupBox>
