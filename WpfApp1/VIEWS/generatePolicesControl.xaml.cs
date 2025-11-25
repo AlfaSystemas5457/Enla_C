@@ -115,6 +115,11 @@ namespace Enla_C.VIEWS
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            
+        }
+
+        public void loadData()
+        {
             try
             {
                 datePickerFecha.SelectedDate = DateTime.Now.Date;

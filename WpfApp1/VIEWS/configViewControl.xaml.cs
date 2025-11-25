@@ -137,6 +137,7 @@ namespace Enla_C.VIEWS
 
                 conect.SaveConfig(dbParams);
                 GeneratePoliciesControl?.CambiarAlmacen();
+                GeneratePoliciesControl?.loadData();
 
                 using (var conn = this.conect.GetConnectionTest())
                 {
