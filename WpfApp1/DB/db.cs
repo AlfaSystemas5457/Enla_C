@@ -80,7 +80,7 @@ namespace Enla_C.DB
                 this.RS = iniFile.Read("Configuración", "RS");
                 this.Alm1 = iniFile.Read("Configuración", "Alm1");
                 this.Alm2 = iniFile.Read("Configuración", "Alm2");
-                this.EditaMP = bool.Parse(iniFile.Read("Configuración", "EditaMP"));
+                this.EditaMP = bool.Parse(iniFile.Read("Configuración", "EditaMP") ?? "False");
                 this.tipoBD = int.Parse(iniFile.Read("Configuración", "TipoBD") ?? "0");
             }
             catch (Exception ex)
@@ -189,7 +189,7 @@ namespace Enla_C.DB
                 using (FbConnection conn = GetConnection())
                 using (FbCommand cmd = new FbCommand(sql, conn))
                 {
-                    if(isConnected == false)
+                    if (isConnected == false)
                     {
                         throw new Exception("No hay conexión a la base de datos.");
                     }
